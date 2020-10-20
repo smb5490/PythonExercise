@@ -61,16 +61,16 @@ my_dict = {}
 total_sum = 0
 count = 0
 
-
+# Function will generate and return random cases from range 1 to 1000 on every call
 def cases():
     c = random.randint(1, 1000)
     for i in range(1):
         return c
 
-
+# Function will generate date from the day of execution to given number in descending order on every call.
+# Date will in the form of IST i.e. DD/MM/YY
 def date_format():
     date = datetime.date.today() - datetime.timedelta(days=j)
-    # print("j:",j)
     indian_format = date.strftime("%d/%m/%Y")
     return indian_format
 
@@ -83,24 +83,28 @@ days = int(input("Enter number of days to check Corona status: "))
 if days < 5:
     sys.exit("Please enter minimum 5 or more number of days")
 
+# Loop will iterate for given number_of_city times
 for i in range(city_number):
     city_name = str(input("Enter City name: "))
+    if len(city_name) == 0:
+        sys.exit("City name shouldn't empty, please rerun the application and provide city name")
+    # Loop will iterate for given_number_of_days times
     for j in range(days):
         case_num = cases()
         print(city_name, " Corona Patient Number On - ", date_format(), ":", case_num)
         total_sum = total_sum + case_num
         count = count + 1
-    # print("total_sum", total_sum)
-    # print("count", count)
+    # Count average of all city
     avg_city = total_sum / count
     print("Average cases in", city_name, "is :", avg_city)
     count = 0
     total_sum = 0
 
     my_dict.update({city_name: avg_city})
+# To find most affected city
 print(my_dict)
 max_avg = max(my_dict, key=my_dict.get)
 print("***** [Result ] The Most Affected City is  : ", max_avg, " *****")
-
+# TO find least affected city
 min_avg = min(my_dict, key=my_dict.get)
 print("***** [Result ] The Least Affected City is : ", min_avg, " *****")
